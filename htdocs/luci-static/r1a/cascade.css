@@ -730,6 +730,16 @@ fieldset > legend {
 	min-width: 0;
 }
 
+/* Only top-level sections are cards; nested sections are structural and
+   must not add another border/padding layer. */
+.cbi-section .cbi-section {
+	padding: 0;
+	margin: 0;
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+}
+
 .cbi-section-node > .cbi-section {
 	padding: 0;
 	margin: 0;
@@ -1209,10 +1219,15 @@ textarea,
 
 /* Regular form fields keep a comfortable reading width; standalone
    textareas (crontab, rc.local, log viewers) use the full content width. */
-.cbi-value-field textarea,
-.cbi-value-field .cbi-input-textarea,
-.cbi-value textarea {
+.cbi-value-field > textarea,
+.cbi-value-field > .cbi-input-textarea {
 	max-width: 560px;
+}
+
+/* DummyValue widgets render as a bare <output> next to the label. */
+.cbi-value > output {
+	flex: 1 1 auto;
+	min-width: 0;
 }
 
 select,
@@ -1738,6 +1753,8 @@ input.cbi-input-invalid {
 	line-height: 1.5;
 	text-align: left;
 	vertical-align: middle;
+	overflow-wrap: anywhere;
+	word-break: break-word;
 	border-bottom: 1px solid hsl(var(--border));
 }
 
@@ -1775,14 +1792,6 @@ input.cbi-input-invalid {
 	vertical-align: top;
 }
 
-.cbi-section-table {
-	overflow: hidden;
-	background: hsl(var(--card));
-	border: 1px solid hsl(var(--border));
-	border-radius: calc(var(--radius) - 2px);
-	box-shadow: var(--shadow-xs);
-}
-
 .cbi-section-table .tr:not(.cbi-section-table-titles):hover {
 	background: hsl(var(--muted) / 0.45);
 }
@@ -1816,10 +1825,27 @@ input.cbi-input-invalid {
 .td > div:has(> .btn),
 .td > div:has(> .cbi-button) {
 	display: flex;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	gap: 6px;
 	align-items: center;
 	justify-content: flex-end;
+}
+
+/* Controls inside table cells must fit their columns instead of forcing
+   the table wider than its container (firewall zones, DHCP leases, ...). */
+.td select,
+.td .cbi-input-select,
+.td .cbi-input-text,
+.td input[type="text"],
+.td input[type="number"] {
+	width: 100%;
+	max-width: none;
+	min-width: 0;
+}
+
+.td .cbi-dropdown {
+	width: 100%;
+	min-width: 0;
 }
 
 .td > .btn + .btn,
@@ -1885,6 +1911,19 @@ th[data-sort-direction="desc"]::after {
 	content: "\00a0\25bc";
 	font-size: 10px;
 }
+
+/* Processes: give every column a stable share so the command column
+   absorbs the remaining space instead of stretching the table. */
+body[data-page="admin-status-processes"] #maincontent table.table {
+	table-layout: fixed;
+}
+
+body[data-page="admin-status-processes"] #maincontent table.table th:nth-child(1) { width: 7%; }
+body[data-page="admin-status-processes"] #maincontent table.table th:nth-child(2) { width: 10%; }
+body[data-page="admin-status-processes"] #maincontent table.table th:nth-child(3) { width: 35%; }
+body[data-page="admin-status-processes"] #maincontent table.table th:nth-child(4) { width: 13%; }
+body[data-page="admin-status-processes"] #maincontent table.table th:nth-child(5) { width: 13%; }
+body[data-page="admin-status-processes"] #maincontent table.table th:nth-child(6) { width: 22%; }
 
 /* ==========================================================================
    15. Tabs
@@ -2061,6 +2100,7 @@ th[data-sort-direction="desc"]::after {
 	display: inline-flex;
 	align-items: center;
 	gap: 5px;
+	max-width: 100%;
 	padding: 3px 8px;
 	font-size: 12px;
 	color: hsl(var(--foreground));
@@ -2136,6 +2176,7 @@ th[data-sort-direction="desc"]::after {
 	display: inline-flex;
 	align-items: center;
 	gap: 3px;
+	max-width: 100%;
 	padding: 3px 6px;
 	font-size: 12px;
 	white-space: nowrap;
@@ -2169,7 +2210,7 @@ th[data-sort-direction="desc"]::after {
 
 .zone-forwards {
 	display: flex;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	gap: 2px;
 }
 
@@ -2943,6 +2984,14 @@ body.modal-overlay-active #modal_overlay {
 	}
 }
 
+@media (max-width: 900px) {
+	.td > div:has(> .btn),
+	.td > div:has(> .cbi-button) {
+		flex-wrap: wrap;
+		justify-content: flex-start;
+	}
+}
+
 @media (max-width: 720px) {
 	#maincontent.r1a-content {
 		padding: 18px 16px 28px;
@@ -3060,6 +3109,12 @@ body.modal-overlay-active #modal_overlay {
 		font-weight: 600;
 		color: hsl(var(--muted-foreground));
 		content: attr(data-title);
+	}
+
+	.cbi-section-table .td > div:has(> .btn),
+	.cbi-section-table .td > div:has(> .cbi-button) {
+		flex-wrap: wrap;
+		justify-content: flex-start;
 	}
 
 	.td.cbi-section-actions {

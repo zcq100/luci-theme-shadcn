@@ -41,7 +41,7 @@
 					mq.addEventListener('change', apply);
 			})();
 		</script>
-		<link rel="stylesheet" href="{{ media }}/cascade.css?v=1.0.5">
+		<link rel="stylesheet" href="{{ media }}/cascade.css?v=1.0.6">
 		<link rel="icon" href="{{ media }}/logo.svg" type="image/svg+xml">
 		{% if (dispatched?.css): %}
 		<link rel="stylesheet" href="{{ resource }}/{{ dispatched.css }}">

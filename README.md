@@ -83,7 +83,7 @@ luci-theme-r1a/
 仓库内已附带构建好的包：
 
 ```
-dist/luci-theme-r1a-1.0.5-r1.apk
+dist/luci-theme-r1a-1.0.6-r1.apk
 ```
 
 适用 **OpenWrt snapshot / 25.12 及以后**（apk-tools 3）。24.10 及更早使用 opkg，不能安装 `.apk`。
@@ -92,15 +92,15 @@ dist/luci-theme-r1a-1.0.5-r1.apk
 
 ```sh
 scp dist/r1a.ec.pub root@192.168.1.1:/etc/apk/keys/
-scp dist/luci-theme-r1a-1.0.5-r1.apk root@192.168.1.1:/tmp/
+scp dist/luci-theme-r1a-1.0.6-r1.apk root@192.168.1.1:/tmp/
 
-ssh root@192.168.1.1 'apk add /tmp/luci-theme-r1a-1.0.5-r1.apk'
+ssh root@192.168.1.1 'apk add /tmp/luci-theme-r1a-1.0.6-r1.apk'
 ```
 
 不想导入公钥时，也可以单次放行未签名/未知密钥的包：
 
 ```sh
-apk add --allow-untrusted /tmp/luci-theme-r1a-1.0.5-r1.apk
+apk add --allow-untrusted /tmp/luci-theme-r1a-1.0.6-r1.apk
 ```
 
 > 如果执行 `apk add` 仍报 `UNTRUSTED signature`，说明公钥没有放进 `/etc/apk/keys/`，或者你用的是其他密钥重新打包的版本。
@@ -168,7 +168,7 @@ uci show luci.themes
 
 ```sh
 APK=/path/to/openwrt-sdk/staging_dir/host/bin/apk ./scripts/build-apk.sh
-# -> dist/luci-theme-r1a-1.0.5-r1.apk
+# -> dist/luci-theme-r1a-1.0.6-r1.apk
 ```
 
 脚本会自动用 `unshare -r` 把包内文件属主设为 `root:root`；如果系统不允许 user namespace，则需要以 root 运行。
@@ -238,6 +238,12 @@ xdg-open 'preview/index.html#dark'   # 深色
 
 ## 更新记录
 
+- **1.0.6**
+  - 表格长内容自动换行，DHCPv6 租约等表格不再撑破容器。
+  - 防火墙 Zones 表格内的控件填满单元格，操作按钮不再堆叠或越界。
+  - 进程表格使用固定列宽：Command 自适应，其余列宽度稳定。
+  - 修复 repokeys 公钥输入框宽度（`DummyValue` 的 `<output>` 撑满行）。
+  - 嵌套 `.cbi-section` 不再生成第二层卡片，Flash 等页面层次更清晰。
 - **1.0.5**
   - 修正 `.left` / `.right` / `.center` 工具类语义：它们是文字对齐（LuCI 会用在表格单元格上），不是浮动；浮动仍由 `.pull-left` / `.pull-right` 负责。修复 package-manager 等页面表头被拆散的问题。
 - **1.0.4**
