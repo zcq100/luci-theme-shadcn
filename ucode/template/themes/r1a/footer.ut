@@ -1,0 +1,20 @@
+	{% if (!blank_page): %}
+					<footer class="r1a-footer">
+						<span>
+							{{ _('Powered by') }}
+							<a href="https://github.com/openwrt/luci" target="_blank" rel="noreferrer">{{ version.luciname }} {{ version.luciversion }}</a>
+							/
+							<a href="{{ entityencode(version.disturl ?? '#', true) }}" target="_blank" rel="noreferrer">{{ version.distname }} {{ version.distversion }} ({{ version.distrevision }})</a>
+						</span>
+						{% if (lua_active): %}
+							<span class="r1a-footer-note">{{ _('Lua compatibility mode active') }}</span>
+						{% endif %}
+					</footer>
+				</div><!-- /#maincontent -->
+			</div><!-- /#r1a-main -->
+		</div><!-- /#r1a-shell -->
+
+		<script>L.require('menu-r1a')</script>
+	{% endif %}
+	</body>
+</html>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="r1a">
+	<style>
+		.bg { fill: #18181b; }
+		.fg { stroke: #fafafa; }
+		.dot { fill: #fafafa; }
+		@media (prefers-color-scheme: dark) {
+			.bg { fill: #fafafa; }
+			.fg { stroke: #18181b; }
+			.dot { fill: #18181b; }
+		}
+	</style>
+	<rect class="bg" x="0" y="0" width="48" height="48" rx="12"/>
+	<g class="fg" fill="none" stroke-width="3.2" stroke-linecap="round">
+		<path d="M11 24a18.5 18.5 0 0 1 26 0"/>
+		<path d="M16.5 29.5a11 11 0 0 1 15 0"/>
+	</g>
+	<circle class="dot" cx="24" cy="35" r="2.6"/>
+</svg>

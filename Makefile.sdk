@@ -1,0 +1,88 @@
+#
+# Standalone OpenWrt package Makefile for luci-theme-r1a.
+#
+# Use this when building outside a LuCI feed checkout, e.g. in the OpenWrt SDK:
+#
+#   mkdir -p package/luci-theme-r1a
+#   cp -a htdocs ucode root Makefile.sdk package/luci-theme-r1a/
+#   mv package/luci-theme-r1a/Makefile.sdk package/luci-theme-r1a/Makefile
+#   make package/luci-theme-r1a/compile
+#
+# The regular Makefile targets the LuCI feed layout (feeds/luci/themes/...).
+#
+
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=luci-theme-r1a
+PKG_VERSION:=1.0.5
+PKG_RELEASE:=1
+
+PKG_LICENSE:=Apache-2.0
+PKG_MAINTAINER:=r1a <r1a@example.invalid>
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/luci-theme-r1a
+  SECTION:=luci
+  CATEGORY:=LuCI
+  SUBMENU:=Themes
+  TITLE:=r1a Theme (shadcn-inspired, responsive, dark mode)
+  DEPENDS:=luci-base
+  PKGARCH:=all
+endef
+
+define Package/luci-theme-r1a/description
+ A shadcn-inspired responsive LuCI theme with light and dark modes.
+endef
+
+define Package/luci-theme-r1a/postinst
+#!/bin/sh
+[ -n "$${IPKG_INSTROOT}" ] || {
+	if [ -x /etc/uci-defaults/30_luci-theme-r1a ]; then
+		sh /etc/uci-defaults/30_luci-theme-r1a
+		rm -f /etc/uci-defaults/30_luci-theme-r1a
+	fi
+
+	rm -f /tmp/luci-indexcache.*
+	rm -rf /tmp/luci-modulecache/
+	/etc/init.d/rpcd reload 2>/dev/null
+	exit 0
+}
+endef
+
+define Package/luci-theme-r1a/postrm
+#!/bin/sh
+[ -n "$${IPKG_INSTROOT}" ] || {
+	uci -q delete luci.themes.R1A
+
+	if [ "$$(uci -q get luci.main.mediaurlbase)" = "/luci-static/r1a" ]; then
+		uci -q set luci.main.mediaurlbase="/luci-static/bootstrap"
+	fi
+
+	uci commit luci
+}
+endef
+
+define Build/Prepare
+	mkdir -p $(PKG_BUILD_DIR)
+	$(CP) ./htdocs $(PKG_BUILD_DIR)/
+	$(CP) ./ucode $(PKG_BUILD_DIR)/
+	$(CP) ./root $(PKG_BUILD_DIR)/
+endef
+
+define Build/Compile
+endef
+
+define Package/luci-theme-r1a/install
+	$(INSTALL_DIR) $(1)/www
+	$(CP) $(PKG_BUILD_DIR)/htdocs/* $(1)/www/
+
+	$(INSTALL_DIR) $(1)/usr/share/ucode/luci
+	$(CP) $(PKG_BUILD_DIR)/ucode/* $(1)/usr/share/ucode/luci/
+
+	$(CP) $(PKG_BUILD_DIR)/root/* $(1)/
+endef
+
+$(eval $(call BuildPackage,luci-theme-r1a))

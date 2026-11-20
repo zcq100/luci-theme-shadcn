@@ -1,0 +1,29 @@
+#!/bin/sh
+
+changed=0
+
+set_opt() {
+	local key=$1
+	local val=$2
+
+	if ! uci -q get "luci.$key" 2>/dev/null; then
+		uci set "luci.$key=$val"
+		changed=1
+	fi
+}
+
+set_opt themes.R1A /luci-static/r1a
+
+# Activate on a fresh install, but never steal the selection from another theme.
+current=$(uci -q get luci.main.mediaurlbase)
+
+if [ "$PKG_UPGRADE" != 1 ] && { [ -z "$current" ] || [ "$current" = "/luci-static/bootstrap" ]; }; then
+	uci set luci.main.mediaurlbase='/luci-static/r1a'
+	changed=1
+fi
+
+if [ $changed = 1 ]; then
+	uci commit luci
+fi
+
+exit 0

@@ -1,0 +1,113 @@
+{#
+ luci-theme-r1a — login page
+ Based on the LuCI base sysauth template (Apache-2.0).
+-#}
+
+{% include('header', { blank_page: true }) %}
+
+<div class="r1a-login">
+	<main class="r1a-login-card">
+		<div class="r1a-login-brand">
+			<img src="{{ media }}/logo.svg" alt="" width="48" height="48">
+			<h1>{{ _('Authorization Required') }}</h1>
+			<p>{{ _('Please enter your username and password.') }}</p>
+		</div>
+
+		{% if (fuser): %}
+			<div class="alert-message error">
+				<p>{{ _('Invalid username and/or password! Please try again.') }}</p>
+			</div>
+		{% endif %}
+
+		{% if (auth_message && !fuser): %}
+			<div class="alert-message{% if (auth_plugin): %} warning{% endif %}">
+				<p>{{ auth_message }}</p>
+			</div>
+		{% endif %}
+
+		<form method="post" class="r1a-login-form">
+			<label class="r1a-field" for="luci_username">
+				<span>{{ _('Username') }}</span>
+				<input name="luci_username" id="luci_username" type="text" autocomplete="username" autocapitalize="off" spellcheck="false" value="{{ entityencode(duser, true) }}">
+			</label>
+
+			<label class="r1a-field" for="luci_password">
+				<span>{{ _('Password') }}</span>
+				<input name="luci_password" id="luci_password" type="password" autocomplete="current-password">
+			</label>
+
+			{% if (auth_fields): %}
+				{% for (let field in auth_fields): %}
+					<label class="r1a-field" for="{{ field.name }}">
+						<span>{{ _(field.label ?? field.name) }}</span>
+						<input
+							name="{{ field.name }}"
+							id="{{ field.name }}"
+							type="{{ field.type ?? 'text' }}"
+							{% if (field.placeholder): %}placeholder="{{ field.placeholder }}"{% endif %}
+							{% if (field.inputmode): %}inputmode="{{ field.inputmode }}"{% endif %}
+							{% if (field.pattern): %}pattern="{{ field.pattern }}"{% endif %}
+							{% if (field.maxlength): %}maxlength="{{ field.maxlength }}"{% endif %}
+							{% if (field.autocomplete): %}autocomplete="{{ field.autocomplete }}"{% endif %}
+							{% if (field.required): %}required{% endif %}
+						>
+					</label>
+				{% endfor %}
+			{% endif %}
+
+			{% if (auth_html): %}
+				<div class="r1a-field">{{ auth_html }}</div>
+			{% endif %}
+
+			{% if (auth_assets): %}
+				{% for (let asset in auth_assets): %}
+					{% if (asset.type == 'script'): %}
+						<script src="{{ asset.src }}"></script>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+
+			<button type="submit" class="btn cbi-button cbi-button-apply important">{{ _('Log in') }}</button>
+		</form>
+	</main>
+
+	<div class="r1a-login-footer">
+		{{ version.luciname }} {{ version.luciversion }} · {{ version.distname }} {{ version.distversion }}
+	</div>
+</div>
+
+{%
+	let https_ports = uci.get('uhttpd', 'main', 'listen_https') ?? [];
+
+	https_ports = uniq(filter(
+		map(
+			(type(https_ports) == 'string') ? split(https_ports, /\s+/) : https_ports,
+			e => +match(e, /\d+$/)?.[0]
+		),
+		p => (p >= 0 && p <= 65535)
+	));
+-%}
+
+<script>
+	(function () {
+		var user = document.getElementById('luci_username');
+		var pass = document.getElementById('luci_password');
+		var https_ports = {{ https_ports }};
+
+		((user && user.value) ? pass : user)?.focus();
+
+		if (document.location.protocol != 'https:') {
+			https_ports.forEach(function (port) {
+				var url = 'https://' + window.location.hostname + ':' + port + window.location.pathname;
+				var img = new Image();
+
+				img.onload = function () { window.location = url };
+				img.src = 'https://' + window.location.hostname + ':' + port + '{{ resource }}/icons/loading.svg?' + Math.random();
+
+				setTimeout(function () { img.src = '' }, 5000);
+			});
+		}
+	})();
+</script>
+
+{% include('footer', { blank_page: true }) %}
