@@ -1,5 +1,5 @@
 /*
- * luci-theme-r1a — a shadcn-inspired LuCI theme
+ * luci-theme-shadcn — a shadcn-inspired LuCI theme
  *
  * Design tokens follow the shadcn/ui convention (HSL triplets + --radius),
  * so the palette, surfaces and focus treatment can be tuned in one place.
@@ -195,13 +195,13 @@ button {
    3. App shell
    ========================================================================== */
 
-#r1a-shell {
+#shadcn-shell {
 	display: flex;
 	min-height: 100vh;
 	min-height: 100dvh;
 }
 
-#r1a-sidebar {
+#shadcn-sidebar {
 	position: fixed;
 	inset: 0 auto 0 0;
 	z-index: 60;
@@ -212,7 +212,7 @@ button {
 	border-right: 1px solid hsl(var(--sidebar-border));
 }
 
-#r1a-main {
+#shadcn-main {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
@@ -220,7 +220,7 @@ button {
 	margin-left: var(--sidebar-width);
 }
 
-.r1a-topbar {
+.shadcn-topbar {
 	position: sticky;
 	top: 0;
 	z-index: 40;
@@ -235,14 +235,14 @@ button {
 	-webkit-backdrop-filter: saturate(180%) blur(12px);
 }
 
-#maincontent.r1a-content {
+#maincontent.shadcn-content {
 	width: 100%;
 	max-width: 1200px;
 	margin: 0 auto;
 	padding: 28px 28px 40px;
 }
 
-.r1a-scrim {
+.shadcn-scrim {
 	position: fixed;
 	inset: 0;
 	z-index: 55;
@@ -251,7 +251,7 @@ button {
 }
 
 @media (min-width: 1025px) {
-	.r1a-scrim {
+	.shadcn-scrim {
 		display: none !important;
 	}
 }
@@ -260,7 +260,7 @@ button {
    4. Sidebar
    ========================================================================== */
 
-.r1a-brand {
+.shadcn-brand {
 	display: flex;
 	align-items: center;
 	gap: 11px;
@@ -269,25 +269,25 @@ button {
 	text-decoration: none;
 }
 
-.r1a-brand:hover {
+.shadcn-brand:hover {
 	text-decoration: none;
 }
 
-.r1a-brand-logo {
+.shadcn-brand-logo {
 	width: 36px;
 	height: 36px;
 	flex: 0 0 36px;
 	border-radius: 10px;
 }
 
-.r1a-brand-text {
+.shadcn-brand-text {
 	display: flex;
 	flex-direction: column;
 	min-width: 0;
 	line-height: 1.35;
 }
 
-.r1a-brand-text strong {
+.shadcn-brand-text strong {
 	overflow: hidden;
 	font-size: 14px;
 	font-weight: 600;
@@ -296,7 +296,7 @@ button {
 	text-overflow: ellipsis;
 }
 
-.r1a-brand-text small {
+.shadcn-brand-text small {
 	overflow: hidden;
 	font-size: 11.5px;
 	color: hsl(var(--sidebar-muted));
@@ -304,7 +304,7 @@ button {
 	text-overflow: ellipsis;
 }
 
-.r1a-nav {
+.shadcn-nav {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
@@ -315,12 +315,12 @@ button {
 	overscroll-behavior: contain;
 }
 
-.r1a-nav-group {
+.shadcn-nav-group {
 	min-width: 0;
 }
 
-.r1a-nav-group-head,
-.r1a-nav-link {
+.shadcn-nav-group-head,
+.shadcn-nav-link {
 	display: flex;
 	align-items: center;
 	gap: 10px;
@@ -340,34 +340,34 @@ button {
 	transition: background-color 0.12s ease, color 0.12s ease;
 }
 
-.r1a-nav-group-head:hover,
-.r1a-nav-link:hover {
+.shadcn-nav-group-head:hover,
+.shadcn-nav-link:hover {
 	color: hsl(var(--sidebar-foreground));
 	text-decoration: none;
 	background: hsl(var(--sidebar-accent));
 }
 
-.r1a-nav-group.is-active > .r1a-nav-group-head {
+.shadcn-nav-group.is-active > .shadcn-nav-group-head {
 	font-weight: 600;
 }
 
-.r1a-nav-link.is-active {
+.shadcn-nav-link.is-active {
 	font-weight: 600;
 	background: hsl(var(--sidebar-accent));
 }
 
-.r1a-nav-group.is-active > .r1a-nav-group-head .r1a-ico {
+.shadcn-nav-group.is-active > .shadcn-nav-group-head .shadcn-ico {
 	color: hsl(var(--foreground));
 	opacity: 1;
 }
 
-.r1a-nav-label {
+.shadcn-nav-label {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 
-.r1a-ico {
+.shadcn-ico {
 	display: inline-flex;
 	flex: 0 0 16px;
 	align-items: center;
@@ -377,12 +377,12 @@ button {
 	opacity: 0.66;
 }
 
-.r1a-ico svg {
+.shadcn-ico svg {
 	width: 16px;
 	height: 16px;
 }
 
-.r1a-nav-caret {
+.shadcn-nav-caret {
 	display: inline-flex;
 	flex: 0 0 auto;
 	margin-left: auto;
@@ -390,31 +390,31 @@ button {
 	transition: transform 0.16s ease;
 }
 
-.r1a-nav-caret svg {
+.shadcn-nav-caret svg {
 	width: 14px;
 	height: 14px;
 }
 
-.r1a-nav-group[data-open] > .r1a-nav-group-head .r1a-nav-caret {
+.shadcn-nav-group[data-open] > .shadcn-nav-group-head .shadcn-nav-caret {
 	transform: rotate(90deg);
 }
 
-.r1a-nav-items {
+.shadcn-nav-items {
 	display: none;
 	margin: 1px 0 6px;
 	padding: 0 0 0 18px;
 	list-style: none;
 }
 
-.r1a-nav-group[data-open] > .r1a-nav-items {
+.shadcn-nav-group[data-open] > .shadcn-nav-items {
 	display: block;
 }
 
-.r1a-nav-items li {
+.shadcn-nav-items li {
 	position: relative;
 }
 
-.r1a-nav-items a {
+.shadcn-nav-items a {
 	position: relative;
 	display: block;
 	padding: 6px 10px 6px 16px;
@@ -428,7 +428,7 @@ button {
 	transition: background-color 0.12s ease, color 0.12s ease;
 }
 
-.r1a-nav-items a::before {
+.shadcn-nav-items a::before {
 	position: absolute;
 	top: 50%;
 	left: 4px;
@@ -439,35 +439,35 @@ button {
 	background: hsl(var(--sidebar-border));
 }
 
-.r1a-nav-items a:hover {
+.shadcn-nav-items a:hover {
 	color: hsl(var(--sidebar-foreground));
 	text-decoration: none;
 	background: hsl(var(--sidebar-accent));
 }
 
-.r1a-nav-items li.r1a-active > a {
+.shadcn-nav-items li.shadcn-active > a {
 	font-weight: 550;
 	color: hsl(var(--sidebar-foreground));
 	background: hsl(var(--sidebar-accent));
 }
 
-.r1a-nav-items li.r1a-active > a::before {
+.shadcn-nav-items li.shadcn-active > a::before {
 	width: 2px;
 	background: hsl(var(--sidebar-foreground));
 }
 
-.r1a-nav-logout {
+.shadcn-nav-logout {
 	margin-top: auto;
 	padding-top: 8px;
 	border-top: 1px solid hsl(var(--sidebar-border));
 }
 
-.r1a-nav-logout .r1a-nav-link {
+.shadcn-nav-logout .shadcn-nav-link {
 	margin-top: 8px;
 	color: hsl(var(--sidebar-muted));
 }
 
-.r1a-modes {
+.shadcn-modes {
 	display: flex;
 	gap: 4px;
 	margin: 10px 0 0;
@@ -477,11 +477,11 @@ button {
 	border-radius: 10px;
 }
 
-.r1a-modes li {
+.shadcn-modes li {
 	flex: 1;
 }
 
-.r1a-modes a {
+.shadcn-modes a {
 	display: block;
 	padding: 5px 8px;
 	font-size: 12px;
@@ -491,7 +491,7 @@ button {
 	border-radius: 7px;
 }
 
-.r1a-modes li.active a {
+.shadcn-modes li.active a {
 	font-weight: 550;
 	color: hsl(var(--sidebar-foreground));
 	background: hsl(var(--sidebar));
@@ -502,7 +502,7 @@ button {
    5. Topbar
    ========================================================================== */
 
-.r1a-topbar-title {
+.shadcn-topbar-title {
 	display: flex;
 	flex: 1;
 	align-items: baseline;
@@ -513,36 +513,36 @@ button {
 	letter-spacing: -0.005em;
 }
 
-.r1a-topbar-title .r1a-crumb {
+.shadcn-topbar-title .shadcn-crumb {
 	font-weight: 400;
 	color: hsl(var(--muted-foreground));
 }
 
-.r1a-topbar-title .r1a-sep {
+.shadcn-topbar-title .shadcn-sep {
 	color: hsl(var(--muted-foreground) / 0.6);
 }
 
-.r1a-topbar-title span {
+.shadcn-topbar-title span {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 
-.r1a-topbar-actions {
+.shadcn-topbar-actions {
 	display: flex;
 	align-items: center;
 	gap: 10px;
 	margin-left: auto;
 }
 
-.r1a-indicators {
+.shadcn-indicators {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 6px;
 	align-items: center;
 }
 
-.r1a-indicators > span {
+.shadcn-indicators > span {
 	display: inline-flex;
 	align-items: center;
 	height: 26px;
@@ -556,19 +556,19 @@ button {
 	border-radius: 999px;
 }
 
-.r1a-indicators > span[data-style="inactive"] {
+.shadcn-indicators > span[data-style="inactive"] {
 	color: hsl(var(--muted-foreground));
 }
 
-.r1a-indicators > span[data-clickable] {
+.shadcn-indicators > span[data-clickable] {
 	cursor: pointer;
 }
 
-.r1a-indicators > span[data-clickable]:hover {
+.shadcn-indicators > span[data-clickable]:hover {
 	border-color: hsl(var(--ring) / 0.4);
 }
 
-.r1a-icon-btn {
+.shadcn-icon-btn {
 	display: inline-flex;
 	flex: 0 0 auto;
 	align-items: center;
@@ -584,28 +584,28 @@ button {
 	transition: background-color 0.12s ease, border-color 0.12s ease;
 }
 
-.r1a-icon-btn:hover {
+.shadcn-icon-btn:hover {
 	background: hsl(var(--accent));
 }
 
-.r1a-icon-btn svg {
+.shadcn-icon-btn svg {
 	width: 17px;
 	height: 17px;
 }
 
-.r1a-nav-toggle {
+.shadcn-nav-toggle {
 	display: none;
 }
 
-.r1a-theme-toggle .r1a-icon-sun {
+.shadcn-theme-toggle .shadcn-icon-sun {
 	display: none;
 }
 
-html[data-darkmode="true"] .r1a-theme-toggle .r1a-icon-sun {
+html[data-darkmode="true"] .shadcn-theme-toggle .shadcn-icon-sun {
 	display: inline-flex;
 }
 
-html[data-darkmode="true"] .r1a-theme-toggle .r1a-icon-moon {
+html[data-darkmode="true"] .shadcn-theme-toggle .shadcn-icon-moon {
 	display: none;
 }
 
@@ -1349,22 +1349,50 @@ input.cbi-input-invalid {
 	box-shadow: 0 0 0 3px hsl(var(--destructive) / 0.15) !important;
 }
 
+/* LuCI renders a single checkbox/radio as .cbi-checkbox/.cbi-radio holding
+   the input plus its <label> (or bare text), so keep them on one line and
+   let the label text wrap inside the remaining width. Multiple options (a
+   container with several <label> children) still wrap onto new rows. */
 .cbi-checkbox,
 .cbi-radio {
 	display: inline-flex;
-	flex-direction: column;
-	gap: 8px;
+	flex-wrap: wrap;
+	gap: 6px 8px;
+	align-items: flex-start;
 	padding-top: 8px;
 }
 
 .cbi-checkbox > label,
 .cbi-radio > label {
 	display: inline-flex;
-	gap: 8px;
+	flex: 1 1 0;
+	gap: 6px;
 	align-items: flex-start;
+	min-width: 0;
 	font-size: 13px;
 	line-height: 1.5;
 	cursor: pointer;
+}
+
+.cbi-checkbox > input[type="checkbox"],
+.cbi-checkbox > label > input[type="checkbox"],
+.cbi-radio > input[type="radio"],
+.cbi-radio > label > input[type="radio"] {
+	margin-right: 0;
+}
+
+/* A container holding several labelled options (label > input) stacks the
+   options vertically; a single option keeps its input and text inline. */
+.cbi-checkbox:has(> label > input),
+.cbi-radio:has(> label > input) {
+	flex-direction: column;
+	align-items: stretch;
+}
+
+.cbi-checkbox:has(> label > input) > label,
+.cbi-radio:has(> label > input) > label {
+	flex: 0 0 auto;
+	width: 100%;
 }
 
 .cbi-value-field > .cbi-checkbox,
@@ -1411,6 +1439,10 @@ input.cbi-input-invalid {
 	background: hsl(var(--background));
 	border: 1px solid hsl(var(--input));
 	box-shadow: var(--shadow-xs);
+}
+
+.cbi-dropdown:not(.btn):not(.cbi-button):hover {
+	border-color: hsl(var(--ring) / 0.45);
 }
 
 .cbi-dropdown:focus-visible,
@@ -1481,6 +1513,19 @@ input.cbi-input-invalid {
 	color: inherit;
 	text-align: center;
 	opacity: 0.6;
+}
+
+/* Replace the text caret with the same Lucide chevron used by <select>. */
+.cbi-dropdown > .open {
+	width: 16px;
+	height: 16px;
+	padding: 0;
+	margin: 0 2px;
+	font-size: 0;
+	opacity: 0.55;
+	background: currentColor;
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / 12px 12px no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / 12px 12px no-repeat;
 }
 
 .cbi-dropdown > .more {
@@ -1555,7 +1600,7 @@ input.cbi-input-invalid {
 
 .cbi-dropdown[open] > ul.dropdown {
 	position: absolute;
-	top: calc(100% + 4px);
+	top: calc(100% + 6px);
 	left: 0;
 	z-index: 1100;
 	display: block;
@@ -1565,9 +1610,10 @@ input.cbi-input-invalid {
 	padding: 4px;
 	overflow-x: hidden;
 	overflow-y: auto;
+	overscroll-behavior: contain;
 	background: hsl(var(--popover));
 	border: 1px solid hsl(var(--border));
-	border-radius: calc(var(--radius) - 2px);
+	border-radius: calc(var(--radius) - 4px);
 	box-shadow: var(--shadow-lg);
 	transition: max-height 0.14s ease-in;
 }
@@ -1577,11 +1623,16 @@ input.cbi-input-invalid {
 }
 
 .cbi-dropdown[open] > ul.dropdown > li {
+	position: relative;
 	display: flex !important;
-	padding: 7px 10px;
+	align-items: center;
+	min-height: 32px;
+	padding: 6px 30px 6px 8px;
 	margin: 0;
+	font-size: 13px;
+	line-height: 1.35;
 	color: hsl(var(--popover-foreground));
-	border-radius: 7px;
+	border-radius: calc(var(--radius) - 6px);
 }
 
 .cbi-dropdown[open] > ul.dropdown > li .hide-open {
@@ -1594,8 +1645,31 @@ input.cbi-input-invalid {
 
 .cbi-dropdown[open] > ul.dropdown > li[selected] {
 	font-weight: 550;
-	color: hsl(var(--primary-foreground));
-	background: hsl(var(--primary));
+	color: hsl(var(--foreground));
+	background: hsl(var(--accent));
+}
+
+/* shadcn-style check mark on the selected item. */
+.cbi-dropdown[open] > ul.dropdown > li[selected]::after {
+	position: absolute;
+	top: 50%;
+	right: 8px;
+	width: 14px;
+	height: 14px;
+	content: "";
+	background: currentColor;
+	transform: translateY(-50%);
+	-webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+	mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.cbi-dropdown[multiple][open] > ul.dropdown > li,
+.cbi-dropdown[multiple][open] > ul.dropdown > li[selected] {
+	padding-right: 8px;
+}
+
+.cbi-dropdown[multiple][open] > ul.dropdown > li[selected]::after {
+	display: none;
 }
 
 .cbi-dropdown[open] > ul.dropdown > li.focus,
@@ -1605,7 +1679,7 @@ input.cbi-input-invalid {
 
 .cbi-dropdown[open] > ul.dropdown > li[selected].focus,
 .cbi-dropdown[open] > ul.dropdown > li[selected]:hover {
-	background: hsl(var(--primary) / 0.88);
+	background: hsl(var(--accent));
 }
 
 .cbi-dropdown[open] > ul.dropdown > li[unselectable] {
@@ -2248,7 +2322,7 @@ body[data-page="admin-status-processes"] #maincontent table.table th:nth-child(6
 	content: attr(title);
 }
 
-@keyframes r1a-spin {
+@keyframes shadcn-spin {
 	to {
 		transform: rotate(360deg);
 	}
@@ -2269,7 +2343,7 @@ body[data-page="admin-status-processes"] #maincontent table.table th:nth-child(6
 	border: 2px solid hsl(var(--foreground) / 0.18);
 	border-top-color: hsl(var(--foreground));
 	border-radius: 50%;
-	animation: r1a-spin 0.75s linear infinite;
+	animation: shadcn-spin 0.75s linear infinite;
 }
 
 #view > div.spinning:first-child {
@@ -2280,7 +2354,7 @@ body[data-page="admin-status-processes"] #maincontent table.table th:nth-child(6
 	color: hsl(var(--muted-foreground));
 }
 
-@keyframes r1a-flash {
+@keyframes shadcn-flash {
 	0% {
 		opacity: 1;
 	}
@@ -2293,7 +2367,7 @@ body[data-page="admin-status-processes"] #maincontent table.table th:nth-child(6
 }
 
 .flash {
-	animation: r1a-flash 0.35s;
+	animation: shadcn-flash 0.35s;
 }
 
 /* ==========================================================================
@@ -2748,7 +2822,7 @@ body.modal-overlay-active #modal_overlay {
    23. Footer
    ========================================================================== */
 
-.r1a-footer {
+.shadcn-footer {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 6px 14px;
@@ -2760,21 +2834,21 @@ body.modal-overlay-active #modal_overlay {
 	border-top: 1px solid hsl(var(--border));
 }
 
-.r1a-footer a {
+.shadcn-footer a {
 	color: inherit;
 	text-decoration: underline;
 	text-underline-offset: 2px;
 }
 
-.r1a-footer a:hover {
+.shadcn-footer a:hover {
 	color: hsl(var(--foreground));
 }
 
-.r1a-footer .r1a-footer-note {
+.shadcn-footer .shadcn-footer-note {
 	margin-left: auto;
 }
 
-.r1a-footer .breadcrumb {
+.shadcn-footer .breadcrumb {
 	display: flex;
 	gap: 8px;
 	padding: 0;
@@ -2786,7 +2860,7 @@ body.modal-overlay-active #modal_overlay {
    24. Login page
    ========================================================================== */
 
-.r1a-login {
+.shadcn-login {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -2799,7 +2873,7 @@ body.modal-overlay-active #modal_overlay {
 		hsl(var(--background));
 }
 
-.r1a-login-card {
+.shadcn-login-card {
 	width: 100%;
 	max-width: 392px;
 	padding: 30px;
@@ -2809,7 +2883,7 @@ body.modal-overlay-active #modal_overlay {
 	box-shadow: var(--shadow-lg);
 }
 
-.r1a-login-brand {
+.shadcn-login-brand {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -2817,7 +2891,7 @@ body.modal-overlay-active #modal_overlay {
 	text-align: center;
 }
 
-.r1a-login-brand img {
+.shadcn-login-brand img {
 	width: 48px;
 	height: 48px;
 	margin-bottom: 14px;
@@ -2825,66 +2899,66 @@ body.modal-overlay-active #modal_overlay {
 	box-shadow: var(--shadow-sm);
 }
 
-.r1a-login-brand h1 {
+.shadcn-login-brand h1 {
 	margin: 0 0 4px;
 	font-size: 19px;
 	font-weight: 650;
 	letter-spacing: -0.02em;
 }
 
-.r1a-login-brand p {
+.shadcn-login-brand p {
 	margin: 0;
 	font-size: 13px;
 	color: hsl(var(--muted-foreground));
 }
 
-.r1a-login-form {
+.shadcn-login-form {
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 }
 
-.r1a-field {
+.shadcn-field {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
 }
 
-.r1a-field > span {
+.shadcn-field > span {
 	font-size: 13px;
 	font-weight: 500;
 }
 
-.r1a-field > input,
-.r1a-field > select {
+.shadcn-field > input,
+.shadcn-field > select {
 	width: 100%;
 	max-width: none;
 	height: 40px;
 }
 
-.r1a-login-form > button,
-.r1a-login-form > input[type="submit"] {
+.shadcn-login-form > button,
+.shadcn-login-form > input[type="submit"] {
 	width: 100%;
 	height: 40px;
 	margin-top: 4px;
 	font-size: 14px;
 }
 
-.r1a-login .alert-message {
+.shadcn-login .alert-message {
 	width: 100%;
 	margin: 0 0 4px;
 	padding: 10px 12px;
 	font-size: 12.5px;
 }
 
-.r1a-login-footer {
+.shadcn-login-footer {
 	margin-top: 22px;
 	font-size: 11.5px;
 	color: hsl(var(--muted-foreground));
 	text-align: center;
 }
 
-.r1a-login-footer a {
+.shadcn-login-footer a {
 	color: inherit;
 	text-decoration: underline;
 	text-underline-offset: 2px;
@@ -2946,33 +3020,33 @@ body.modal-overlay-active #modal_overlay {
    ========================================================================== */
 
 @media (max-width: 1024px) {
-	#r1a-sidebar {
+	#shadcn-sidebar {
 		transform: translateX(-100%);
 		transition: transform 0.2s ease;
 		box-shadow: var(--shadow-lg);
 	}
 
-	body.r1a-nav-open #r1a-sidebar {
+	body.shadcn-nav-open #shadcn-sidebar {
 		transform: translateX(0);
 	}
 
-	body.r1a-nav-open {
+	body.shadcn-nav-open {
 		overflow: hidden;
 	}
 
-	#r1a-main {
+	#shadcn-main {
 		margin-left: 0;
 	}
 
-	.r1a-nav-toggle {
+	.shadcn-nav-toggle {
 		display: inline-flex;
 	}
 
-	.r1a-topbar {
+	.shadcn-topbar {
 		padding: 0 16px;
 	}
 
-	#maincontent.r1a-content {
+	#maincontent.shadcn-content {
 		padding: 22px 20px 32px;
 	}
 
@@ -2990,10 +3064,68 @@ body.modal-overlay-active #modal_overlay {
 		flex-wrap: wrap;
 		justify-content: flex-start;
 	}
+
+	/* The package-manager view ships its own inline stylesheet that keeps
+	   control groups on one line with a 250px min-width. On narrow screens
+	   that pushes the action buttons past the card edge, so relax it with
+	   higher-specificity rules. */
+	#maincontent .controls {
+		gap: 12px;
+		justify-content: flex-start;
+		margin: 12px 0 16px;
+	}
+
+	#maincontent .controls > * {
+		flex: 1 1 100%;
+		min-width: 0;
+		max-width: 100%;
+		padding: 0;
+		white-space: normal;
+	}
+
+	#maincontent .controls > * > label {
+		flex-basis: 100%;
+		min-width: 0;
+		margin-bottom: 4px;
+		font-weight: 550;
+	}
+
+	#maincontent .controls > * > .control-group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		width: 100%;
+	}
+
+	#maincontent .controls > * > .control-group > input,
+	#maincontent .controls > * > .control-group > .cbi-input-text {
+		flex: 1 1 160px;
+		min-width: 0;
+		width: auto;
+	}
+
+	#maincontent .controls > * > .control-group > .btn,
+	#maincontent .controls > * > .control-group > .cbi-button {
+		flex: 0 0 auto;
+	}
+
+	#maincontent .controls > .pager {
+		justify-content: center;
+	}
+
+	#maincontent .controls > .pager > .btn {
+		flex: 0 0 44px;
+	}
+
+	#maincontent .controls > .pager > .text {
+		flex: 0 1 auto;
+		text-align: center;
+		white-space: normal;
+	}
 }
 
 @media (max-width: 720px) {
-	#maincontent.r1a-content {
+	#maincontent.shadcn-content {
 		padding: 18px 16px 28px;
 	}
 
@@ -3064,10 +3196,15 @@ body.modal-overlay-active #modal_overlay {
 
 	/* Tables become stacked cards, using data-title labels LuCI provides */
 	.cbi-section-table {
+		display: block;
 		background: transparent;
 		border: 0;
 		box-shadow: none;
 		overflow: visible;
+	}
+
+	.cbi-section-table > tbody {
+		display: block;
 	}
 
 	.cbi-section-table .tr {
@@ -3117,6 +3254,74 @@ body.modal-overlay-active #modal_overlay {
 		justify-content: flex-start;
 	}
 
+	/* package-manager uses a plain <table id="packages"> rather than
+	   .cbi-section-table; give it the same stacked-card layout. */
+	#packages {
+		display: block;
+		background: transparent;
+		border: 0;
+		box-shadow: none;
+	}
+
+	#packages > tbody {
+		display: block;
+	}
+
+	#packages > tbody > .tr {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		padding: 14px;
+		margin-bottom: 10px;
+		background: hsl(var(--card));
+		border: 1px solid hsl(var(--border));
+		border-radius: var(--radius);
+		box-shadow: var(--shadow-xs);
+	}
+
+	#packages > tbody > .tr.cbi-section-table-titles {
+		display: none;
+	}
+
+	#packages .td {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		padding: 0;
+		text-align: left !important;
+		border: 0;
+	}
+
+	#packages .td.center,
+	#packages .td.right {
+		text-align: left !important;
+	}
+
+	#packages .td[data-title]::before {
+		font-size: 11.5px;
+		font-weight: 600;
+		color: hsl(var(--muted-foreground));
+		content: attr(data-title);
+	}
+
+	#packages > tbody > .tr > .td:first-child {
+		font-size: 14px;
+		font-weight: 600;
+	}
+
+	#packages > tbody > .tr > .td:first-child::before {
+		display: none;
+	}
+
+	#packages .td.cbi-section-actions {
+		align-items: flex-start;
+	}
+
+	#packages .td.cbi-section-actions > .btn {
+		flex: 0 0 auto;
+		align-self: flex-start;
+	}
+
 	.td.cbi-section-actions {
 		text-align: left;
 	}
@@ -3126,15 +3331,15 @@ body.modal-overlay-active #modal_overlay {
 		margin-left: 0;
 	}
 
-	.r1a-topbar-title .r1a-crumb {
+	.shadcn-topbar-title .shadcn-crumb {
 		display: none;
 	}
 
-	.r1a-topbar-title .r1a-sep {
+	.shadcn-topbar-title .shadcn-sep {
 		display: none;
 	}
 
-	.r1a-login-card {
+	.shadcn-login-card {
 		padding: 24px 20px;
 	}
 }

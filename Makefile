@@ -1,27 +1,27 @@
 #
-# Copyright (C) 2026 luci-theme-r1a contributors
+# Copyright (C) 2026 luci-theme-shadcn contributors
 #
 # This is free software, licensed under the Apache License, Version 2.0.
 #
 
 include $(TOPDIR)/rules.mk
 
-LUCI_TITLE:=r1a Theme (shadcn-inspired, responsive, dark mode)
+LUCI_TITLE:=shadcn Theme (responsive, light and dark mode)
 LUCI_DEPENDS:=+luci-base
 LUCI_PKGARCH:=all
 
-PKG_VERSION:=1.0.6
+PKG_VERSION:=1.0.7
 PKG_RELEASE:=1
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
-PKG_MAINTAINER:=r1a <r1a@example.invalid>
+PKG_MAINTAINER:=luci-theme-shadcn <luci-theme-shadcn@example.invalid>
 
-define Package/luci-theme-r1a/postinst
+define Package/luci-theme-shadcn/postinst
 #!/bin/sh
 [ -n "$${IPKG_INSTROOT}" ] || {
-	if [ -x /etc/uci-defaults/30_luci-theme-r1a ]; then
-		sh /etc/uci-defaults/30_luci-theme-r1a
-		rm -f /etc/uci-defaults/30_luci-theme-r1a
+	if [ -x /etc/uci-defaults/30_luci-theme-shadcn ]; then
+		sh /etc/uci-defaults/30_luci-theme-shadcn
+		rm -f /etc/uci-defaults/30_luci-theme-shadcn
 	fi
 
 	rm -f /tmp/luci-indexcache.*
@@ -31,12 +31,12 @@ define Package/luci-theme-r1a/postinst
 }
 endef
 
-define Package/luci-theme-r1a/postrm
+define Package/luci-theme-shadcn/postrm
 #!/bin/sh
 [ -n "$${IPKG_INSTROOT}" ] || {
-	uci -q delete luci.themes.R1A
+	uci -q delete luci.themes.SHADCN
 
-	if [ "$$(uci -q get luci.main.mediaurlbase)" = "/luci-static/r1a" ]; then
+	if [ "$$(uci -q get luci.main.mediaurlbase)" = "/luci-static/shadcn" ]; then
 		uci -q set luci.main.mediaurlbase="/luci-static/bootstrap"
 	fi
 

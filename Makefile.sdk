@@ -1,48 +1,48 @@
 #
-# Standalone OpenWrt package Makefile for luci-theme-r1a.
+# Standalone OpenWrt package Makefile for luci-theme-shadcn.
 #
 # Use this when building outside a LuCI feed checkout, e.g. in the OpenWrt SDK:
 #
-#   mkdir -p package/luci-theme-r1a
-#   cp -a htdocs ucode root Makefile.sdk package/luci-theme-r1a/
-#   mv package/luci-theme-r1a/Makefile.sdk package/luci-theme-r1a/Makefile
-#   make package/luci-theme-r1a/compile
+#   mkdir -p package/luci-theme-shadcn
+#   cp -a htdocs ucode root Makefile.sdk package/luci-theme-shadcn/
+#   mv package/luci-theme-shadcn/Makefile.sdk package/luci-theme-shadcn/Makefile
+#   make package/luci-theme-shadcn/compile
 #
 # The regular Makefile targets the LuCI feed layout (feeds/luci/themes/...).
 #
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=luci-theme-r1a
-PKG_VERSION:=1.0.6
+PKG_NAME:=luci-theme-shadcn
+PKG_VERSION:=1.0.7
 PKG_RELEASE:=1
 
 PKG_LICENSE:=Apache-2.0
-PKG_MAINTAINER:=r1a <r1a@example.invalid>
+PKG_MAINTAINER:=luci-theme-shadcn <luci-theme-shadcn@example.invalid>
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/luci-theme-r1a
+define Package/luci-theme-shadcn
   SECTION:=luci
   CATEGORY:=LuCI
   SUBMENU:=Themes
-  TITLE:=r1a Theme (shadcn-inspired, responsive, dark mode)
+  TITLE:=shadcn Theme (responsive, light and dark mode)
   DEPENDS:=luci-base
   PKGARCH:=all
 endef
 
-define Package/luci-theme-r1a/description
+define Package/luci-theme-shadcn/description
  A shadcn-inspired responsive LuCI theme with light and dark modes.
 endef
 
-define Package/luci-theme-r1a/postinst
+define Package/luci-theme-shadcn/postinst
 #!/bin/sh
 [ -n "$${IPKG_INSTROOT}" ] || {
-	if [ -x /etc/uci-defaults/30_luci-theme-r1a ]; then
-		sh /etc/uci-defaults/30_luci-theme-r1a
-		rm -f /etc/uci-defaults/30_luci-theme-r1a
+	if [ -x /etc/uci-defaults/30_luci-theme-shadcn ]; then
+		sh /etc/uci-defaults/30_luci-theme-shadcn
+		rm -f /etc/uci-defaults/30_luci-theme-shadcn
 	fi
 
 	rm -f /tmp/luci-indexcache.*
@@ -52,12 +52,12 @@ define Package/luci-theme-r1a/postinst
 }
 endef
 
-define Package/luci-theme-r1a/postrm
+define Package/luci-theme-shadcn/postrm
 #!/bin/sh
 [ -n "$${IPKG_INSTROOT}" ] || {
-	uci -q delete luci.themes.R1A
+	uci -q delete luci.themes.SHADCN
 
-	if [ "$$(uci -q get luci.main.mediaurlbase)" = "/luci-static/r1a" ]; then
+	if [ "$$(uci -q get luci.main.mediaurlbase)" = "/luci-static/shadcn" ]; then
 		uci -q set luci.main.mediaurlbase="/luci-static/bootstrap"
 	fi
 
@@ -75,7 +75,7 @@ endef
 define Build/Compile
 endef
 
-define Package/luci-theme-r1a/install
+define Package/luci-theme-shadcn/install
 	$(INSTALL_DIR) $(1)/www
 	$(CP) $(PKG_BUILD_DIR)/htdocs/* $(1)/www/
 
@@ -85,4 +85,4 @@ define Package/luci-theme-r1a/install
 	$(CP) $(PKG_BUILD_DIR)/root/* $(1)/
 endef
 
-$(eval $(call BuildPackage,luci-theme-r1a))
+$(eval $(call BuildPackage,luci-theme-shadcn))

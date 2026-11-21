@@ -12,13 +12,13 @@ set_opt() {
 	fi
 }
 
-set_opt themes.R1A /luci-static/r1a
+set_opt themes.SHADCN /luci-static/shadcn
 
 # Activate on a fresh install, but never steal the selection from another theme.
 current=$(uci -q get luci.main.mediaurlbase)
 
 if [ "$PKG_UPGRADE" != 1 ] && { [ -z "$current" ] || [ "$current" = "/luci-static/bootstrap" ]; }; then
-	uci set luci.main.mediaurlbase='/luci-static/r1a'
+	uci set luci.main.mediaurlbase='/luci-static/shadcn'
 	changed=1
 fi
 

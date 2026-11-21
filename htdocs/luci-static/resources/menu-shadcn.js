@@ -3,7 +3,7 @@
 'require ui';
 
 /*
- * luci-theme-r1a — sidebar menu renderer
+ * luci-theme-shadcn — sidebar menu renderer
  *
  * Renders the LuCI menu tree into the theme's sidebar and keeps the small
  * bits of theme chrome (mobile drawer, dark mode switch) wired up.
@@ -50,13 +50,13 @@ function iconSvg(name) {
 }
 
 function makeIcon(name) {
-	const span = E('span', { 'class': 'r1a-ico' });
+	const span = E('span', { 'class': 'shadcn-ico' });
 	span.innerHTML = iconSvg(name);
 	return span;
 }
 
 function makeCaret() {
-	const span = E('span', { 'class': 'r1a-nav-caret' });
+	const span = E('span', { 'class': 'shadcn-nav-caret' });
 	span.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
 	return span;
 }
@@ -71,11 +71,11 @@ return baseclass.extend({
 	},
 
 	initChrome() {
-		const toggle = document.querySelector('#r1a-nav-toggle');
-		const scrim = document.querySelector('#r1a-scrim');
+		const toggle = document.querySelector('#shadcn-nav-toggle');
+		const scrim = document.querySelector('#shadcn-scrim');
 
 		const setOpen = (open) => {
-			document.body.classList.toggle('r1a-nav-open', open);
+			document.body.classList.toggle('shadcn-nav-open', open);
 
 			if (toggle)
 				toggle.setAttribute('aria-expanded', String(open));
@@ -85,7 +85,7 @@ return baseclass.extend({
 		};
 
 		if (toggle)
-			toggle.addEventListener('click', () => setOpen(!document.body.classList.contains('r1a-nav-open')));
+			toggle.addEventListener('click', () => setOpen(!document.body.classList.contains('shadcn-nav-open')));
 
 		if (scrim)
 			scrim.addEventListener('click', () => setOpen(false));
@@ -95,7 +95,7 @@ return baseclass.extend({
 				setOpen(false);
 		});
 
-		const themeToggle = document.querySelector('#r1a-theme-toggle');
+		const themeToggle = document.querySelector('#shadcn-theme-toggle');
 
 		if (themeToggle) {
 			const isDark = () => document.documentElement.getAttribute('data-darkmode') === 'true';
@@ -109,7 +109,7 @@ return baseclass.extend({
 				themeToggle.setAttribute('aria-pressed', String(dark));
 
 				try {
-					window.localStorage.setItem('r1a-theme', dark ? 'dark' : 'light');
+					window.localStorage.setItem('shadcn-theme', dark ? 'dark' : 'light');
 				}
 				catch (e) {}
 			});
@@ -128,7 +128,7 @@ return baseclass.extend({
 		this.renderGroups(mode, path);
 		this.renderTabMenu(tree);
 
-		const title = document.querySelector('#r1a-page-title');
+		const title = document.querySelector('#shadcn-page-title');
 
 		if (title && !title.textContent && L.env.nodespec?.title)
 			title.textContent = _(L.env.nodespec.title);
@@ -168,10 +168,10 @@ return baseclass.extend({
 
 			if (children.length === 0) {
 				nav.appendChild(E('a', {
-					'class': `r1a-nav-link${isActive ? ' is-active' : ''}`,
+					'class': `shadcn-nav-link${isActive ? ' is-active' : ''}`,
 					'href': L.url(mode.name, group.name),
 					'aria-current': isActive ? 'page' : null
-				}, [ makeIcon(group.name), E('span', { 'class': 'r1a-nav-label' }, [ _(group.title) ]) ]));
+				}, [ makeIcon(group.name), E('span', { 'class': 'shadcn-nav-label' }, [ _(group.title) ]) ]));
 
 				if (isActive)
 					this.updateTitle(group, path, []);
@@ -180,12 +180,12 @@ return baseclass.extend({
 			}
 
 			const open = isActive;
-			const items = E('ul', { 'class': 'r1a-nav-items' });
+			const items = E('ul', { 'class': 'shadcn-nav-items' });
 
 			children.forEach((child) => {
 				const itemActive = isActive && path[2] === child.name;
 
-				items.appendChild(E('li', { 'class': itemActive ? 'r1a-active' : null }, [
+				items.appendChild(E('li', { 'class': itemActive ? 'shadcn-active' : null }, [
 					E('a', {
 						'href': L.url(mode.name, group.name, child.name),
 						'aria-current': itemActive ? 'page' : null
@@ -195,7 +195,7 @@ return baseclass.extend({
 
 			const head = E('button', {
 				'type': 'button',
-				'class': 'r1a-nav-group-head',
+				'class': 'shadcn-nav-group-head',
 				'aria-expanded': open ? 'true' : 'false',
 				'click': (ev) => {
 					const node = ev.currentTarget.parentNode;
@@ -210,12 +210,12 @@ return baseclass.extend({
 				}
 			}, [
 				makeIcon(group.name),
-				E('span', { 'class': 'r1a-nav-label' }, [ _(group.title) ]),
+				E('span', { 'class': 'shadcn-nav-label' }, [ _(group.title) ]),
 				makeCaret()
 			]);
 
 			nav.appendChild(E('div', {
-				'class': `r1a-nav-group${isActive ? ' is-active' : ''}`,
+				'class': `shadcn-nav-group${isActive ? ' is-active' : ''}`,
 				'data-open': open ? '' : null
 			}, [ head, items ]));
 
@@ -231,19 +231,19 @@ return baseclass.extend({
 		}
 
 		if (logout) {
-			const wrap = E('div', { 'class': 'r1a-nav-logout' });
+			const wrap = E('div', { 'class': 'shadcn-nav-logout' });
 
 			wrap.appendChild(E('a', {
-				'class': 'r1a-nav-link',
+				'class': 'shadcn-nav-link',
 				'href': L.url(mode.name, logout.name)
-			}, [ makeIcon('logout'), E('span', { 'class': 'r1a-nav-label' }, [ _(logout.title) ]) ]));
+			}, [ makeIcon('logout'), E('span', { 'class': 'shadcn-nav-label' }, [ _(logout.title) ]) ]));
 
 			nav.appendChild(wrap);
 		}
 	},
 
 	updateTitle(group, path, children) {
-		const box = document.querySelector('#r1a-page-title');
+		const box = document.querySelector('#shadcn-page-title');
 
 		if (!box)
 			return;
@@ -253,8 +253,8 @@ return baseclass.extend({
 		box.textContent = '';
 
 		if (active) {
-			box.appendChild(E('span', { 'class': 'r1a-crumb' }, [ _(group.title) ]));
-			box.appendChild(E('span', { 'class': 'r1a-sep' }, [ '/' ]));
+			box.appendChild(E('span', { 'class': 'shadcn-crumb' }, [ _(group.title) ]));
+			box.appendChild(E('span', { 'class': 'shadcn-sep' }, [ '/' ]));
 			box.appendChild(E('span', {}, [ _(active.title) ]));
 		}
 		else {

@@ -1,13 +1,13 @@
 {#
- luci-theme-r1a — login page
+ luci-theme-shadcn — login page
  Based on the LuCI base sysauth template (Apache-2.0).
 -#}
 
 {% include('header', { blank_page: true }) %}
 
-<div class="r1a-login">
-	<main class="r1a-login-card">
-		<div class="r1a-login-brand">
+<div class="shadcn-login">
+	<main class="shadcn-login-card">
+		<div class="shadcn-login-brand">
 			<img src="{{ media }}/logo.svg" alt="" width="48" height="48">
 			<h1>{{ _('Authorization Required') }}</h1>
 			<p>{{ _('Please enter your username and password.') }}</p>
@@ -25,20 +25,20 @@
 			</div>
 		{% endif %}
 
-		<form method="post" class="r1a-login-form">
-			<label class="r1a-field" for="luci_username">
+		<form method="post" class="shadcn-login-form">
+			<label class="shadcn-field" for="luci_username">
 				<span>{{ _('Username') }}</span>
 				<input name="luci_username" id="luci_username" type="text" autocomplete="username" autocapitalize="off" spellcheck="false" value="{{ entityencode(duser, true) }}">
 			</label>
 
-			<label class="r1a-field" for="luci_password">
+			<label class="shadcn-field" for="luci_password">
 				<span>{{ _('Password') }}</span>
 				<input name="luci_password" id="luci_password" type="password" autocomplete="current-password">
 			</label>
 
 			{% if (auth_fields): %}
 				{% for (let field in auth_fields): %}
-					<label class="r1a-field" for="{{ field.name }}">
+					<label class="shadcn-field" for="{{ field.name }}">
 						<span>{{ _(field.label ?? field.name) }}</span>
 						<input
 							name="{{ field.name }}"
@@ -56,7 +56,7 @@
 			{% endif %}
 
 			{% if (auth_html): %}
-				<div class="r1a-field">{{ auth_html }}</div>
+				<div class="shadcn-field">{{ auth_html }}</div>
 			{% endif %}
 
 			{% if (auth_assets): %}
@@ -71,7 +71,7 @@
 		</form>
 	</main>
 
-	<div class="r1a-login-footer">
+	<div class="shadcn-login-footer">
 		{{ version.luciname }} {{ version.luciversion }} · {{ version.distname }} {{ version.distversion }}
 	</div>
 </div>

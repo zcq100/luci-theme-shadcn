@@ -1,5 +1,5 @@
 #!/bin/sh
-# Build dist/luci-theme-r1a-<version>.apk from the repo tree.
+# Build dist/luci-theme-shadcn-<version>.apk from the repo tree.
 #
 # Requires an apk-tools 3 binary (the one shipped in the OpenWrt SDK works):
 #   APK=/path/to/sdk/staging_dir/host/bin/apk ./scripts/build-apk.sh
@@ -44,17 +44,17 @@ install -d "$ROOT/www/luci-static/resources" \
 	"$SCRIPTS" \
 	"$TOP/dist"
 
-cp -a "$TOP/htdocs/luci-static/r1a" "$ROOT/www/luci-static/"
-cp "$TOP/htdocs/luci-static/resources/menu-r1a.js" "$ROOT/www/luci-static/resources/"
-cp -a "$TOP/ucode/template/themes/r1a" "$ROOT/usr/share/ucode/luci/template/themes/"
-cp -a "$TOP/root/etc/uci-defaults/30_luci-theme-r1a" "$ROOT/etc/uci-defaults/"
+cp -a "$TOP/htdocs/luci-static/shadcn" "$ROOT/www/luci-static/"
+cp "$TOP/htdocs/luci-static/resources/menu-shadcn.js" "$ROOT/www/luci-static/resources/"
+cp -a "$TOP/ucode/template/themes/shadcn" "$ROOT/usr/share/ucode/luci/template/themes/"
+cp -a "$TOP/root/etc/uci-defaults/30_luci-theme-shadcn" "$ROOT/etc/uci-defaults/"
 
 cat > "$SCRIPTS/post-install" <<'EOF'
 #!/bin/sh
 [ -n "$IPKG_INSTROOT" ] || {
-	if [ -x /etc/uci-defaults/30_luci-theme-r1a ]; then
-		sh /etc/uci-defaults/30_luci-theme-r1a
-		rm -f /etc/uci-defaults/30_luci-theme-r1a
+	if [ -x /etc/uci-defaults/30_luci-theme-shadcn ]; then
+		sh /etc/uci-defaults/30_luci-theme-shadcn
+		rm -f /etc/uci-defaults/30_luci-theme-shadcn
 	fi
 
 	rm -f /tmp/luci-indexcache.*
@@ -67,9 +67,9 @@ EOF
 cat > "$SCRIPTS/post-deinstall" <<'EOF'
 #!/bin/sh
 [ -n "$IPKG_INSTROOT" ] || {
-	uci -q delete luci.themes.R1A
+	uci -q delete luci.themes.SHADCN
 
-	if [ "$(uci -q get luci.main.mediaurlbase)" = "/luci-static/r1a" ]; then
+	if [ "$(uci -q get luci.main.mediaurlbase)" = "/luci-static/shadcn" ]; then
 		uci -q set luci.main.mediaurlbase="/luci-static/bootstrap"
 	fi
 
@@ -79,22 +79,22 @@ EOF
 
 chown -R 0:0 "$ROOT" "$SCRIPTS"
 
-OUT="$TOP/dist/luci-theme-r1a-$FULLVERSION.apk"
+OUT="$TOP/dist/luci-theme-shadcn-$FULLVERSION.apk"
 
 SIGN_KEY=${SIGN_KEY:-}
-if [ -z "$SIGN_KEY" ] && [ -f "$TOP/.signing/r1a.ec.key" ]; then
-	SIGN_KEY="$TOP/.signing/r1a.ec.key"
+if [ -z "$SIGN_KEY" ] && [ -f "$TOP/.signing/shadcn.ec.key" ]; then
+	SIGN_KEY="$TOP/.signing/shadcn.ec.key"
 fi
 
 set -- \
-	--info "name:luci-theme-r1a" \
+	--info "name:luci-theme-shadcn" \
 	--info "version:$FULLVERSION" \
 	--info "description:A shadcn-inspired responsive LuCI theme with light and dark modes." \
 	--info "arch:noarch" \
 	--info "license:Apache-2.0" \
 	--info "origin:luci" \
 	--info "url:https://github.com/openwrt/luci" \
-	--info "maintainer:r1a <r1a@example.invalid>" \
+	--info "maintainer:luci-theme-shadcn <luci-theme-shadcn@example.invalid>" \
 	--info "depends:luci-base" \
 	--script "post-install:$SCRIPTS/post-install" \
 	--script "post-deinstall:$SCRIPTS/post-deinstall" \
@@ -105,7 +105,7 @@ if [ -n "$SIGN_KEY" ]; then
 	set -- "$@" --sign-key "$SIGN_KEY"
 
 	if command -v openssl >/dev/null 2>&1; then
-		openssl ec -in "$SIGN_KEY" -pubout -out "$TOP/dist/r1a.ec.pub" 2>/dev/null || true
+		openssl ec -in "$SIGN_KEY" -pubout -out "$TOP/dist/shadcn.ec.pub" 2>/dev/null || true
 	fi
 fi
 
