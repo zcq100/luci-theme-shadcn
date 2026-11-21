@@ -6,10 +6,39 @@
 - 包本身与架构无关（`noarch`），任何 OpenWrt 目标设备均可使用
 
 > OpenWrt 23.05 及更早版本使用 Lua 模板，本主题不包含 `luasrc/view/themes/` 下的文件，无法直接使用。
+>
+> OpenWrt 24.10 使用 opkg，不能安装 `.apk`，请用 [SDK 编译](#方式三openwrt-sdk--固件编译) 生成 `.ipk`。
 
-## 方式一：构建并安装 apk
+## 方式一：从 GitHub Release 安装（推荐）
 
-适用于 **OpenWrt snapshot / 25.12 及以后**（apk-tools 3）。
+适用于 **OpenWrt snapshot / 25.12 及以后**（apk-tools 3）。在路由器上执行：
+
+```sh
+# 导入签名公钥
+uclient-fetch -O /etc/apk/keys/shadcn.ec.pub \
+  https://github.com/zcq100/luci-theme-shadcn/releases/latest/download/shadcn.ec.pub
+
+# 下载并安装最新版本
+uclient-fetch -O /tmp/luci-theme-shadcn.apk \
+  https://github.com/zcq100/luci-theme-shadcn/releases/latest/download/luci-theme-shadcn.apk
+apk add /tmp/luci-theme-shadcn.apk
+```
+
+`latest/download/` 始终指向最新 Release。若 `uclient-fetch` 报 TLS 错误，先安装 `libustream-openssl`（或 `libustream-mbedtls`）。
+
+安装脚本会自动登记主题；若当前主题是 Bootstrap 或未设置，会自动切换到 shadcn，并清理 LuCI 缓存。
+
+卸载：
+
+```sh
+apk del luci-theme-shadcn
+```
+
+若当前主题是 shadcn，卸载脚本会回退到 `/luci-static/bootstrap`。
+
+## 方式二：本地构建并安装 apk
+
+适用于需要自行构建或修改主题的情况（OpenWrt snapshot / 25.12+）。
 
 ```sh
 # 需要 apk-tools 3（OpenWrt SDK 自带）
@@ -34,17 +63,9 @@ ssh root@192.168.1.1 'apk add /tmp/luci-theme-shadcn-*.apk'
 apk add --allow-untrusted /tmp/luci-theme-shadcn-*.apk
 ```
 
-安装脚本会自动登记主题；若当前主题是 Bootstrap 或未设置，会自动切换到 shadcn，并清理 LuCI 缓存。
+安装脚本会自动登记主题；若当前主题是 Bootstrap 或未设置，会自动切换到 shadcn，并清理 LuCI 缓存。卸载方式见上一节。
 
-卸载：
-
-```sh
-apk del luci-theme-shadcn
-```
-
-若当前主题是 shadcn，卸载脚本会回退到 `/luci-static/bootstrap`。
-
-## 方式二：OpenWrt SDK / 固件编译
+## 方式三：OpenWrt SDK / 固件编译
 
 ### LuCI feed 布局
 
@@ -67,7 +88,7 @@ make package/luci-theme-shadcn/compile V=s
 
 生成的 `.ipk` / `.apk` 位于 SDK 的 `bin/` 目录，安装后会自动登记主题。
 
-## 方式三：手动部署
+## 方式四：手动部署
 
 ```sh
 ROUTER=root@192.168.1.1

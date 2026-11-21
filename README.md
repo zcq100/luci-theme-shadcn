@@ -4,7 +4,7 @@ shadcn/ui 风格的 OpenWrt LuCI 主题：响应式布局、明暗双主题、�
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue?style=flat-square)](LICENSE)
 [![OpenWrt](https://img.shields.io/badge/OpenWrt-24.10%2B-00B5E2?style=flat-square)](https://openwrt.org)
-[![Version](https://img.shields.io/badge/version-1.0.7-blue?style=flat-square)](docs/CHANGELOG.md)
+[![Release](https://img.shields.io/github/v/release/zcq100/luci-theme-shadcn?style=flat-square&label=release)](https://github.com/zcq100/luci-theme-shadcn/releases/latest)
 
 <p align="center">
   <img src="docs/preview-light.png" width="49%" alt="浅色主题">
@@ -21,19 +21,20 @@ shadcn/ui 风格的 OpenWrt LuCI 主题：响应式布局、明暗双主题、�
 
 ## 安装
 
-需要 OpenWrt 24.10+（ucode 模板）。
+在路由器上直接下载最新 Release 安装（OpenWrt snapshot / 25.12+，apk-tools 3）：
 
 ```sh
-# 1. 构建 apk（需要 apk-tools 3，OpenWrt SDK 自带）
-APK=/path/to/openwrt-sdk/staging_dir/host/bin/apk ./scripts/build-apk.sh
+# 导入签名公钥
+uclient-fetch -O /etc/apk/keys/shadcn.ec.pub \
+  https://github.com/zcq100/luci-theme-shadcn/releases/latest/download/shadcn.ec.pub
 
-# 2. 导入公钥并安装（OpenWrt snapshot / 25.12+）
-scp dist/shadcn.ec.pub root@192.168.1.1:/etc/apk/keys/
-scp dist/luci-theme-shadcn-*.apk root@192.168.1.1:/tmp/
-ssh root@192.168.1.1 'apk add /tmp/luci-theme-shadcn-*.apk'
+# 下载并安装最新版本
+uclient-fetch -O /tmp/luci-theme-shadcn.apk \
+  https://github.com/zcq100/luci-theme-shadcn/releases/latest/download/luci-theme-shadcn.apk
+apk add /tmp/luci-theme-shadcn.apk
 ```
 
-SDK 编译、手动部署、卸载与回退见 **[安装文档](docs/INSTALL.md)**。
+OpenWrt 24.10 及更早使用 opkg，需要从源码编译；SDK 编译、手动部署、卸载与回退见 **[安装文档](docs/INSTALL.md)**。
 
 ## 自定义
 
