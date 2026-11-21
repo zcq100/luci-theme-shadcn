@@ -7,7 +7,7 @@ luci-theme-shadcn/
 ├── Makefile                              # LuCI feed 布局（feeds/luci/themes/...）
 ├── Makefile.sdk                          # 独立 SDK 布局（package/luci-theme-shadcn）
 ├── scripts/build-apk.sh                  # 生成 dist/*.apk
-├── dist/                                 # 构建产物（apk 与签名公钥）
+├── dist/                                 # 本地构建产物（不提交，通过 Releases 分发）
 ├── htdocs/luci-static/shadcn/
 │   ├── cascade.css                       # 全部样式（token + 组件 + 响应式）
 │   └── logo.svg                          # 品牌角标 / favicon
